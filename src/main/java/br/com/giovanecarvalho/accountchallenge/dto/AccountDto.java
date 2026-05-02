@@ -1,4 +1,6 @@
 package br.com.giovanecarvalho.accountchallenge.dto;
 
-public record AccountDto(String id, int balance) {
+import java.math.BigDecimal;
+
+public record AccountDto(String id, BigDecimal balance) {
 }
