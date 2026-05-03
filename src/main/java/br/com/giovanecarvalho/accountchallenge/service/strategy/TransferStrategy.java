@@ -19,7 +19,7 @@ public class TransferStrategy implements TransactionStrategy {
     }
 
     @Override
-    public TransactionType type() {
+    public TransactionType getTransactionType() {
         return TransactionType.TRANSFER;
     }
 

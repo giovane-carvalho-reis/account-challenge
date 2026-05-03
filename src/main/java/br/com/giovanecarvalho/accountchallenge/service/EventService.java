@@ -20,7 +20,7 @@ public class EventService {
     public EventService(final AccountRepository repository, final List<TransactionStrategy> strategyList) {
         this.repository = repository;
         this.strategies = strategyList.stream()
-                .collect(Collectors.toMap(TransactionStrategy::type, s -> s));
+                .collect(Collectors.toMap(TransactionStrategy::getTransactionType, s -> s));
     }
 
     public void reset() {
@@ -34,14 +34,26 @@ public class EventService {
     }
 
     public EventResponse processEvent(final EventRequest request) {
-        TransactionType type = TransactionType.valueOf(request.type().toUpperCase());
+        TransactionType type = parseTransactionType(request.type());
 
         TransactionStrategy strategy = strategies.get(type);
 
         if (strategy == null) {
-            throw new IllegalArgumentException("Tipo inválido");
+            throw new IllegalArgumentException("Invalid transaction type");
         }
 
         return strategy.execute(request);
+    }
+
+    private TransactionType parseTransactionType(final String type) {
+        if (type == null) {
+            throw new IllegalArgumentException("Invalid transaction type");
+        }
+
+        try {
+            return TransactionType.valueOf(type.toUpperCase());
+        } catch (IllegalArgumentException exception) {
+            throw new IllegalArgumentException("Invalid transaction type", exception);
+        }
     }
 }

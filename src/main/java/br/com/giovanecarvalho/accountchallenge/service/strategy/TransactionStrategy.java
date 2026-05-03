@@ -5,6 +5,6 @@ import br.com.giovanecarvalho.accountchallenge.dto.EventResponse;
 import br.com.giovanecarvalho.accountchallenge.dto.TransactionType;
 
 public interface TransactionStrategy {
-    TransactionType type();
+    TransactionType getTransactionType();
     EventResponse execute(EventRequest request);
 }

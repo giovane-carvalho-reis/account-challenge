@@ -44,7 +44,7 @@ public class AccountRepository {
             }
 
             if (balance.compareTo(amount) < 0) {
-                throw new IllegalStateException("Saldo insuficiente");
+                throw new IllegalStateException("Insufficient balance");
             }
 
             return balance.subtract(amount);
@@ -53,7 +53,7 @@ public class AccountRepository {
 
     private void validateAmount(BigDecimal amount) {
         if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("Valor inválido");
+            throw new IllegalArgumentException("Invalid amount");
         }
     }
 }

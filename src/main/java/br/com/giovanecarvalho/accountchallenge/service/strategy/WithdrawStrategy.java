@@ -19,7 +19,7 @@ public class WithdrawStrategy implements TransactionStrategy {
     }
 
     @Override
-    public TransactionType type() {
+    public TransactionType getTransactionType() {
         return TransactionType.WITHDRAW;
     }
 
