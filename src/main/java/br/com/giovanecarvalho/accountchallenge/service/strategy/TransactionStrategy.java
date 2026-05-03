@@ -1,4 +1,4 @@
-package br.com.giovanecarvalho.accountchallenge.service;
+package br.com.giovanecarvalho.accountchallenge.service.strategy;
 
 import br.com.giovanecarvalho.accountchallenge.dto.EventRequest;
 import br.com.giovanecarvalho.accountchallenge.dto.EventResponse;

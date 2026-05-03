@@ -1,4 +1,4 @@
-package br.com.giovanecarvalho.accountchallenge.service;
+package br.com.giovanecarvalho.accountchallenge.service.strategy;
 
 import br.com.giovanecarvalho.accountchallenge.dto.AccountDto;
 import br.com.giovanecarvalho.accountchallenge.dto.EventRequest;
@@ -10,22 +10,22 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 
 @Service
-public class DepositStrategy implements TransactionStrategy {
+public class WithdrawStrategy implements TransactionStrategy {
 
     private final AccountRepository repository;
 
-    public DepositStrategy(AccountRepository repository) {
+    public WithdrawStrategy(AccountRepository repository) {
         this.repository = repository;
     }
 
     @Override
     public TransactionType type() {
-        return TransactionType.DEPOSIT;
+        return TransactionType.WITHDRAW;
     }
 
     @Override
     public EventResponse execute(EventRequest request) {
-        BigDecimal balance = repository.credit(request.destination(), request.amount());
-        return new EventResponse(null, new AccountDto(request.destination(), balance));
+        BigDecimal balance = repository.debit(request.origin(), request.amount());
+        return new EventResponse(new AccountDto(request.origin(), balance), null);
     }
 }

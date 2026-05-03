@@ -4,6 +4,7 @@ import br.com.giovanecarvalho.accountchallenge.dto.EventRequest;
 import br.com.giovanecarvalho.accountchallenge.dto.EventResponse;
 import br.com.giovanecarvalho.accountchallenge.dto.TransactionType;
 import br.com.giovanecarvalho.accountchallenge.repository.AccountRepository;
+import br.com.giovanecarvalho.accountchallenge.service.strategy.TransactionStrategy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
