@@ -17,9 +17,9 @@ public class AccountController {
     }
 
     @PostMapping("/reset")
-    public ResponseEntity<Void> reset() {
+    public ResponseEntity<String> reset() {
         eventService.reset();
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("OK");
     }
 
     @GetMapping("/balance")

@@ -3,6 +3,7 @@ package br.com.giovanecarvalho.accountchallenge.service;
 import br.com.giovanecarvalho.accountchallenge.dto.EventRequest;
 import br.com.giovanecarvalho.accountchallenge.dto.EventResponse;
 import br.com.giovanecarvalho.accountchallenge.dto.TransactionType;
+import br.com.giovanecarvalho.accountchallenge.exception.AccountNotFoundException;
 import br.com.giovanecarvalho.accountchallenge.repository.AccountRepository;
 import br.com.giovanecarvalho.accountchallenge.service.strategy.TransactionStrategy;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,7 @@ public class EventService {
     public Integer getBalance(final String accountId) {
         return repository.findBalanceById(accountId)
                 .map(Number::intValue)
-                .orElseThrow();
+                .orElseThrow(AccountNotFoundException::new);
     }
 
     public EventResponse processEvent(final EventRequest request) {
