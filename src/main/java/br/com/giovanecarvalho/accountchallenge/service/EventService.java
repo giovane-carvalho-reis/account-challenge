@@ -3,6 +3,7 @@ package br.com.giovanecarvalho.accountchallenge.service;
 import br.com.giovanecarvalho.accountchallenge.dto.EventRequest;
 import br.com.giovanecarvalho.accountchallenge.dto.EventResponse;
 import br.com.giovanecarvalho.accountchallenge.dto.TransactionType;
+import br.com.giovanecarvalho.accountchallenge.repository.AccountRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,11 +13,23 @@ import java.util.stream.Collectors;
 @Service
 public class EventService {
 
+    private final AccountRepository repository;
     private final Map<TransactionType, TransactionStrategy> strategies;
 
-    public EventService(final List<TransactionStrategy> strategyList) {
+    public EventService(final AccountRepository repository, final List<TransactionStrategy> strategyList) {
+        this.repository = repository;
         this.strategies = strategyList.stream()
                 .collect(Collectors.toMap(TransactionStrategy::type, s -> s));
+    }
+
+    public void reset() {
+        repository.clear();
+    }
+
+    public Integer getBalance(final String accountId) {
+        return repository.findBalanceById(accountId)
+                .map(Number::intValue)
+                .orElseThrow();
     }
 
     public EventResponse processEvent(final EventRequest request) {
