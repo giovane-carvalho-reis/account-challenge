@@ -31,7 +31,7 @@ public class EventService {
     public Integer getBalance(final String accountId) {
         return repository.findBalanceById(accountId)
                 .map(Number::intValue)
-                .orElseThrow(AccountNotFoundException::new);
+                .orElseThrow(() -> new AccountNotFoundException(accountId));
     }
 
     public EventResponse processEvent(final EventRequest request) {

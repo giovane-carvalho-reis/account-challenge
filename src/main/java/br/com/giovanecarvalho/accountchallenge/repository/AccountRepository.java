@@ -40,7 +40,7 @@ public class AccountRepository {
 
         return store.compute(id, (k, balance) -> {
             if (balance == null) {
-                throw new AccountNotFoundException();
+                throw new AccountNotFoundException(id);
             }
 
             if (balance.compareTo(amount) < 0) {
